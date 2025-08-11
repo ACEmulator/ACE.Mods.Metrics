@@ -1,7 +1,7 @@
 {
   "Name": "ACE.Mods.Metrics",
   "Author": "Mag-nus, Ripley, Aquafir",
-  "Description": "Prometheus based metrics for ACEmulator",
+  "Description": "Prometheus based metrics exporter for ACEmulator",
   "Version": "1.0",
   "Enabled": true,
   "HotReload": true,
