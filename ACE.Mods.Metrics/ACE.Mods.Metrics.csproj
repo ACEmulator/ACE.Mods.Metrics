@@ -101,7 +101,7 @@
     </Target>-->
 
     <!--More cleanup in Release mode?-->
-    <Target Name="CleanupFilesRelease" AfterTargets="CleanupFiles" Condition="$(ConfigurationName) == Release">
+    <Target Name="CleanupFilesRelease" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == Release">
         <ItemGroup>
             <FilesToDelete Include="$(OutDir)*.deps.json" />
             <FilesToDelete Include="$(OutDir)*runtimeconfig.json" />
@@ -117,7 +117,7 @@
         <RemoveDir Directories="@(FoldersToDelete)" />
     </Target>
     <!--Zip if in Release mod-->
-    <Target Name="ZipOutputPath" AfterTargets="CleanupFiles" Condition="$(ConfigurationName) == Release">
+    <Target Name="ZipOutputPath" AfterTargets="CleanupFilesRelease" Condition="$(ConfigurationName) == Release">
         <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(OutputPath)..\$(ProjectName).zip" Overwrite="true" />
     </Target>
 </Project>
