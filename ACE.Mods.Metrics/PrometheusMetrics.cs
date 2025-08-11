@@ -1,19 +1,4 @@
-﻿using ACE.Database;
-using ACE.Server.Network.Managers;
-using ACE.Server.Physics.Managers;
-using ACE.Server;
-using Prometheus.DotNetRuntime;
-using Prometheus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prometheus;
-using Prometheus.DotNetRuntime;
-
-
-namespace Metrics;
+namespace ACE.Mods.Metrics;
 public static class PrometheusMetrics
 {
     private static MetricServer metricServer;
@@ -159,7 +144,7 @@ public static class PrometheusMetrics
         // todo this throws exception
         //dotNetMetricsCollector.Dispose();
 
-        metricServer.Stop();
+        metricServer?.Stop();
     }
 
     static void MetricsAddBeforeCollectCallback()
@@ -180,9 +165,9 @@ public static class PrometheusMetrics
         ace_Process_Threads.Set(proc.Threads.Count);
         ace_Process_PrivateMemorySize64.Set(proc.PrivateMemorySize64);
 
-        //ace_NetworkManager_SessionCount.Set(NetworkManager.GetSessionCount());
-        //ace_NetworkManager_AuthenticatedSessionCount.Set(NetworkManager.GetAuthenticatedSessionCount());
-        //ace_NetworkManager_UniqueSessionEndpointCount.Set(NetworkManager.GetUniqueSessionEndpointCount());
+        ace_NetworkManager_SessionCount.Set(NetworkManager.GetSessionCount());
+        ace_NetworkManager_AuthenticatedSessionCount.Set(NetworkManager.GetAuthenticatedSessionCount());
+        ace_NetworkManager_UniqueSessionEndpointCount.Set(NetworkManager.GetUniqueSessionEndpointCount());
 
         ace_PlayerManager_OnlineCount.Set(PlayerManager.GetOnlineCount());
         ace_PlayerManager_TotalCount.Set(PlayerManager.GetOfflineCount() + PlayerManager.GetOnlineCount());
