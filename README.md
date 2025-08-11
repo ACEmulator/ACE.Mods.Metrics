@@ -1,6 +1,6 @@
 # ACE.Mods.Metrics
 
-A Prometheus based metrics server for ACEmulator servers
+A Prometheus based metrics exporter for ACEmulator servers
 
 ## Features
 
