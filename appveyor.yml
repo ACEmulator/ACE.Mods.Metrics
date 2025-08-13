@@ -46,6 +46,7 @@ deploy:
     secure: lGLpqex+Weod6ZiPw34RwTv999QvoSZ+imTcmYhiJWQL6XkfkVUYcqOO6pJDuAYt
   artifact: /.*\.zip/
   draft: true
+  prerelease: false
   force_update: true
   on:
     branch: main
