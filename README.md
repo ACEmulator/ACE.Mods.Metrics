@@ -2,6 +2,14 @@
 
 A Prometheus based metrics exporter for ACEmulator servers
 
+[![Discord](https://img.shields.io/discord/261242462972936192.svg?label=play+now!&style=for-the-badge&logo=discord)](https://discord.gg/C2WzhP9)
+
+[![License](https://img.shields.io/github/license/acemulator/ace.mods.metrics)](https://github.com/ACEmulator/ACE.Mods.Metrics/blob/main/LICENSE)[![GitHub last commit (main)](https://img.shields.io/github/last-commit/acemulator/ace.mods.metrics/main)](https://github.com/ACEmulator/ACE.Mods.Metrics/commits/main)[![Windows CI](https://ci.appveyor.com/api/projects/status/audksvlkdmhqusem/branch/main?svg=true)](https://ci.appveyor.com/project/LtRipley36706/ace-mods-metrics/branch/main)
+
+[![Download Latest Release](https://img.shields.io/github/v/release/ACEmulator/ACE.Mods.Metrics?label=latest%20release)![GitHub Release Date](https://img.shields.io/github/release-date/acemulator/ace.mods.metrics)](https://github.com/ACEmulator/ACE.Mods.Metrics/releases/latest)
+
+[![GitHub All Releases](https://img.shields.io/github/downloads/acemulator/ace.mods.metrics/total?label=mod%20downloads)](https://github.com/ACEmulator/ACE.Mods.Metrics/releases)
+
 ## Features
 
 - **Real-time on-demand Metrics**: Allows your prometheus server to collect metrics output from ACEmulator
