@@ -10,6 +10,15 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
 
     public override Task OnStartSuccess()
     {
+        var currentServerVersion = ServerBuildInfo.GetServerVersion();
+
+        if (currentServerVersion.Build < 4694)
+        {
+            Mod.Log($"Cannot start Metrics Exporter.\nYou must upgrade this server to at least v1.71.4694 to have functional metrics.", ModManager.LogLevel.Error);
+            ModManager.DisableModByName("ACE.Mods.Metrics");
+            return Task.CompletedTask;
+        }
+
         Settings = SettingsContainer?.Settings ?? new();
         StartServices();
 
