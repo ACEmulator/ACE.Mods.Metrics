@@ -1,0 +1,50 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+skip_tags: true
+branches:
+  except:
+    - /dependabot/
+image: Visual Studio 2022
+configuration: Release
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  version_prefix: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+install:
+- cmd: >-
+    git clone -q https://github.com/ACEmulator/ACE.git C:\projects\ace
+
+    cd C:\projects\ace
+
+    git checkout -qf master
+
+    dotnet publish "C:\projects\ace\Source\ACE.Server\ACE.Server.csproj" --output C:\ACE\Server --configuration Debug --verbosity minimal
+
+    cd %APPVEYOR_BUILD_FOLDER%
+before_build:
+- ps: "dotnet restore\n\nfunction Format-Json\n{\n    <#\n    .SYNOPSIS\n        Applies proper formatting to a JSON string with the specified indentation.\n \n    .DESCRIPTION\n        The `Format-Json` function takes a JSON string as input and formats it with the specified level of indentation. \n        The function processes each line of the JSON string, adjusting the indentation level based on the structure of the JSON.\n \n    .PARAMETER Json\n        The JSON string to be formatted.\n        This parameter is mandatory and accepts input from the pipeline.\n \n    .PARAMETER Indentation\n        Specifies the number of spaces to use for each indentation level.\n        The value must be between 1 and 1024. \n        The default value is 2.\n \n    .EXAMPLE\n        $formattedJson = Get-Content -Path 'config.json' | Format-Json -Indentation 4\n        This example reads the JSON content from a file named 'config.json', formats it with an \n        indentation level of 4 spaces, and stores the result in the `$formattedJson` variable.\n \n    .EXAMPLE\n        @'\n        {\n            \"EnableSSL\":  true,\n            \"MaxThreads\":  8,\n            \"ConnectionStrings\":  {\n                                      \"DefaultConnection\":  \"Server=SERVER_NAME;Database=DATABASE_NAME;Trusted_Connection=True;\"\n                                  }\n        }\n        '@ | Format-Json\n        This example formats an inline JSON string with the default indentation level of 2 spaces.\n \n    .NOTES\n        This function assumes that the input string is valid JSON.\n    #>\n    param\n    (\n        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]\n        [String]$Json,\n \n        [ValidateRange(1, 1024)]\n        [Int]$Indentation = 2\n    )\n \n    $lines = $Json -split '\\n'\n \n    $indentLevel = 0\n \n    $result = $lines | ForEach-Object `\n    {\n        if ($_ -match \"[\\}\\]]\")\n        {\n            $indentLevel--\n        }\n \n        $line = (' ' * $indentLevel * $Indentation) + $_.TrimStart().Replace(\":  \", \": \")\n \n        if ($_ -match \"[\\{\\[]\")\n        {\n            $indentLevel++\n        }\n \n        return $line\n    }\n \n    return $result -join \"`n\"\n}\n\n$jsonFilePath = \"$Env:APPVEYOR_PROJECT_NAME\\Meta.json\"\n$jsonData = Get-Content $jsonFilePath -Raw | ConvertFrom-Json\n$jsonData.Version = \"$Env:APPVEYOR_BUILD_VERSION\"\n$updatedJsonString = $jsonData | ConvertTo-Json -Depth 2 | Format-Json\n\nSet-Content -Path $jsonFilePath -Value $updatedJsonString"
+build:
+  verbosity: minimal
+after_build:
+- cmd: copy C:\ACE\Mods\*.zip %APPVEYOR_BUILD_FOLDER%
+artifacts:
+- path: '**\*.zip'
+  name: release candidate
+deploy:
+- provider: GitHub
+  tag: v$(appveyor_build_version)
+  release: ACE.Mods.Metrics - v$(appveyor_build_version)
+  description: <blockquote>  <h1><h6>automated mod build - $(APPVEYOR_REPO_COMMIT_TIMESTAMP) </blockquote>
+  auth_token:
+    secure: lGLpqex+Weod6ZiPw34RwTv999QvoSZ+imTcmYhiJWQL6XkfkVUYcqOO6pJDuAYt
+  artifact: /.*\.zip/
+  draft: true
+  force_update: true
+  on:
+    branch: main
