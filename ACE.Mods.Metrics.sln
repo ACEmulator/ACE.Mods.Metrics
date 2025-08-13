@@ -10,8 +10,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root Items", "Root Items", 
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
 		LICENSE = LICENSE
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor", "AppVeyor", "{7AED1A03-23B2-43DB-90B3-86B24A83BC9D}"
+	ProjectSection(SolutionItems) = preProject
+		AppVeyor\BeforeBuild.ps1 = AppVeyor\BeforeBuild.ps1
 	EndProjectSection
 EndProject
 Global
