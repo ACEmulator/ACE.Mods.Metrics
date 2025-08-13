@@ -70,11 +70,21 @@ function Format-Json
     return $result -join "`n"
 }
 
-$jsonFilePath = "$Env:APPVEYOR_PROJECT_NAME\Meta.json"
-$jsonData = Get-Content $jsonFilePath -Raw | ConvertFrom-Json
-$jsonData.Version = "$Env:APPVEYOR_BUILD_VERSION"
-#$updatedJsonString = $jsonData | ConvertTo-Json -Depth 2 | Format-Json
+Write-Host "Patching Version in Meta.json..." -NoNewline
 
-#Set-Content -Path $jsonFilePath -Value $updatedJsonString
+try {
 
-$jsonData | ConvertTo-Json | Format-Json | Out-File $jsonFilePath
+    $jsonFilePath = "$Env:APPVEYOR_PROJECT_NAME\Meta.json"
+
+    $jsonData = Get-Content $jsonFilePath -Raw | ConvertFrom-Json
+    $jsonData.Version = "$Env:APPVEYOR_BUILD_VERSION"
+
+    $jsonData | ConvertTo-Json | Format-Json | Out-File $jsonFilePath
+
+    Write-Host "OK" -ForegroundColor Green
+
+} catch {
+
+    Write-Host "An error occurred: $($_.Exception.Message)"
+
+}
