@@ -20,6 +20,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor", "AppVeyor", "{7A
 		AppVeyor\BeforeBuild.ps1 = AppVeyor\BeforeBuild.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{BFF764A2-BB16-43C5-A2BD-5046AD635ACC}"
+	ProjectSection(SolutionItems) = preProject
+		ace-init.dockerfile = ace-init.dockerfile
+		ace-init.sh = ace-init.sh
+		docker-compose.yml = docker-compose.yml
+		docker.env = docker.env
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grafana", "Grafana", "{42580B9F-ED15-45AD-93D8-F0D5BC25ABCC}"
+	ProjectSection(SolutionItems) = preProject
+		grafana\provisioning\dashboards\ACE_NET_runtime_metrics_dashboard.json = grafana\provisioning\dashboards\ACE_NET_runtime_metrics_dashboard.json
+		grafana\provisioning\dashboards\dashboard.yml = grafana\provisioning\dashboards\dashboard.yml
+		grafana\provisioning\datasources\datasource.yml = grafana\provisioning\datasources\datasource.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prometheus", "Prometheus", "{BA812983-8E30-4007-8766-7E3451931B3C}"
+	ProjectSection(SolutionItems) = preProject
+		prometheus\prometheus.yml = prometheus\prometheus.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
