@@ -18,7 +18,7 @@ A Prometheus based metrics exporter for ACEmulator servers
 
 1. **Prerequisites**
    - .NET 8.0 runtime
-   - [ACEmulator](https://github.com/ACEmulator/ACE) server installation
+   - [ACEmulator](https://github.com/ACEmulator/ACE) server installation, version 1.71.4694 or higher required
    - [Prometheus](https://prometheus.io/) server installation
 
 2. **Installation Steps**
@@ -29,6 +29,36 @@ A Prometheus based metrics exporter for ACEmulator servers
    - Restart your ACEmulator server or reload mods using `/mod f` command from console or in-game.
 
 
+## Sample Dashboard
+
+Located in `grafana\provisioning\dashboards` you will find `ACE_NET_runtime_metrics_dashboard.json` which is a sample dashboard for use with this mod.
+
+Additionally, this repo has a docker compose stack found at `docker-compose.yml` to easily demo the plugin and dashboard.
+
+To use the demo:
+1. Clone this repo to easily download all needed files.
+2. Initialize the docker stack with the following command: `docker compose run --rm ace-init`
+   - This will download Dats and Moda for the server to use and place them in the correct locations
+   - You can choose to do this manually by
+     - Placing your DAT files in a directory called `Dats`
+     - Any Mods, including this one, in to the `Mods` directory using a subfolder for each mod, seperately.
+3. Start the docker stack with the following command: `docker compose up -d`
+    - This will download, create required directories, auto configure, and start the following services:
+      - ace-db
+        - `mysql:8.0` configured to use `mysql-data` as its data directory
+        - You can change some defaults found in the `docker.env` file
+      - ace-prometheus
+        - `prom/prometheus:latest` configured to use `prometheus-data` as its data directory and its configuration at `prometheus`
+        - Accessible at http://localhost:9090/
+      - ace-grafana
+        - `grafana/grafana-enterprise:latest` configured to use `grafana-data` as its data directory and its configuration at `grafana/provisioning`
+        - Accessible at http://localhost:3000/ and the dashboard located at http://localhost:3000/d/RHbwEa8mzACE3/ace-net-runtime-metrics
+      - ace-server
+        - `acemulator/ace:latest` configured to use `Config`, `Content`, `Dats`, `Logs` and `Mods` for data and configuration.
+        - You can change some defaults found in the `docker.env` file
+        - The server will download and install the latest database on first start up, and will be set to make the first account connected an Admin.
+       
+4. To stop the docker stack, use the following command: `docker compose down`
 
 ## Configuration
 

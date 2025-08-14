@@ -364,3 +364,13 @@ FodyWeavers.xsd
 
 # ACEmulator Mod specific files
 Settings.json
+
+/Config
+/Content
+/Dats
+/Logs
+/Mods
+
+/grafana-data
+/mysql-data
+/prometheus-data
