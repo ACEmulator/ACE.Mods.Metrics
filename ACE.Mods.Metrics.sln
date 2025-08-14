@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACE.Mods.Metrics", "ACE.Mods.Metrics\ACE.Mods.Metrics.csproj", "{10CA9D60-0B03-454E-B71F-8C863946583D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root Items", "Root Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor", "AppVeyor", "{7AED1A03-23B2-43DB-90B3-86B24A83BC9D}"
+	ProjectSection(SolutionItems) = preProject
+		AppVeyor\BeforeBuild.ps1 = AppVeyor\BeforeBuild.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{BFF764A2-BB16-43C5-A2BD-5046AD635ACC}"
+	ProjectSection(SolutionItems) = preProject
+		ace-init.dockerfile = ace-init.dockerfile
+		ace-init.sh = ace-init.sh
+		docker-compose.yml = docker-compose.yml
+		docker.env = docker.env
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grafana", "Grafana", "{42580B9F-ED15-45AD-93D8-F0D5BC25ABCC}"
+	ProjectSection(SolutionItems) = preProject
+		grafana\provisioning\dashboards\ACE_NET_runtime_metrics_dashboard.json = grafana\provisioning\dashboards\ACE_NET_runtime_metrics_dashboard.json
+		grafana\provisioning\dashboards\dashboard.yml = grafana\provisioning\dashboards\dashboard.yml
+		grafana\provisioning\datasources\datasource.yml = grafana\provisioning\datasources\datasource.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prometheus", "Prometheus", "{BA812983-8E30-4007-8766-7E3451931B3C}"
+	ProjectSection(SolutionItems) = preProject
+		prometheus\prometheus.yml = prometheus\prometheus.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10CA9D60-0B03-454E-B71F-8C863946583D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10CA9D60-0B03-454E-B71F-8C863946583D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10CA9D60-0B03-454E-B71F-8C863946583D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10CA9D60-0B03-454E-B71F-8C863946583D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0E02802-61D0-4650-9F7D-093D8A945D58}
+	EndGlobalSection
+EndGlobal

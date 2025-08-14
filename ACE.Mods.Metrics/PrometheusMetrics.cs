@@ -1,19 +1,4 @@
-﻿using ACE.Database;
-using ACE.Server.Network.Managers;
-using ACE.Server.Physics.Managers;
-using ACE.Server;
-using Prometheus.DotNetRuntime;
-using Prometheus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Prometheus;
-using Prometheus.DotNetRuntime;
-
-
-namespace Metrics;
+namespace ACE.Mods.Metrics;
 public static class PrometheusMetrics
 {
     private static MetricServer metricServer;
@@ -159,7 +144,7 @@ public static class PrometheusMetrics
         // todo this throws exception
         //dotNetMetricsCollector.Dispose();
 
-        metricServer.Stop();
+        metricServer?.Stop();
     }
 
     static void MetricsAddBeforeCollectCallback()
@@ -180,9 +165,9 @@ public static class PrometheusMetrics
         ace_Process_Threads.Set(proc.Threads.Count);
         ace_Process_PrivateMemorySize64.Set(proc.PrivateMemorySize64);
 
-        //ace_NetworkManager_SessionCount.Set(NetworkManager.GetSessionCount());
-        //ace_NetworkManager_AuthenticatedSessionCount.Set(NetworkManager.GetAuthenticatedSessionCount());
-        //ace_NetworkManager_UniqueSessionEndpointCount.Set(NetworkManager.GetUniqueSessionEndpointCount());
+        ace_NetworkManager_SessionCount.Set(NetworkManager.GetSessionCount());
+        ace_NetworkManager_AuthenticatedSessionCount.Set(NetworkManager.GetAuthenticatedSessionCount());
+        ace_NetworkManager_UniqueSessionEndpointCount.Set(NetworkManager.GetUniqueSessionEndpointCount());
 
         ace_PlayerManager_OnlineCount.Set(PlayerManager.GetOnlineCount());
         ace_PlayerManager_TotalCount.Set(PlayerManager.GetOfflineCount() + PlayerManager.GetOnlineCount());
@@ -311,43 +296,35 @@ public static class PrometheusMetrics
         sb.Append($"Cell.dat has {DatManager.CellDat.FileCache.Count:N0} files cached of {DatManager.CellDat.AllFiles.Count:N0} total{'\n'}");
         */
 
+        ace_GuidManager_PlayerGuidAllocator_Min.Set(GuidManager.PlayerMin);
+        ace_GuidManager_PlayerGuidAllocator_Current.Set(GuidManager.PlayerCurrent);
+        ace_GuidManager_PlayerGuidAllocator_Max.Set(GuidManager.PlayerMax);
 
-
-
-
-
-
-
-
-        //ace_GuidManager_PlayerGuidAllocator_Min.Set(GuidManager.PlayerMin);
-        //ace_GuidManager_PlayerGuidAllocator_Current.Set(GuidManager.PlayerCurrent);
-        //ace_GuidManager_PlayerGuidAllocator_Max.Set(GuidManager.PlayerMax);
-
-        //ace_GuidManager_DynamicGuidAllocator_Min.Set(GuidManager.DynamicMin);
-        //ace_GuidManager_DynamicGuidAllocator_Current.Set(GuidManager.DynamicCurrent);
-        //ace_GuidManager_DynamicGuidAllocator_Max.Set(GuidManager.DynamicMax);
-        //ace_GuidManager_DynamicGuidAllocator_SequenceGapPairsTotal.Set(GuidManager.SequenceGapPairsTotal);
-        //ace_GuidManager_DynamicGuidAllocator_RecycledGuidsTotal.Set(GuidManager.RecycledGuidsTotal);
+        ace_GuidManager_DynamicGuidAllocator_Min.Set(GuidManager.DynamicMin);
+        ace_GuidManager_DynamicGuidAllocator_Current.Set(GuidManager.DynamicCurrent);
+        ace_GuidManager_DynamicGuidAllocator_Max.Set(GuidManager.DynamicMax);
+        ace_GuidManager_DynamicGuidAllocator_SequenceGapPairsTotal.Set(GuidManager.SequenceGapPairsTotal);
+        ace_GuidManager_DynamicGuidAllocator_RecycledGuidsTotal.Set(GuidManager.RecycledGuidsTotal);
 
         ace_AllegianceManager_AllegiancesLoadedInMemory.Set(AllegianceManager.Allegiances.Count);
         ace_AllegianceManager_PlayersMappedInMemory.Set(AllegianceManager.Players.Count);
 
-        //ace_HouseManager_TotalOwnedHousing.Set(HouseManager.TotalOwnedHousing);
-        //if (HouseManager.TotalOwnedHousingByType.TryGetValue(ACE.Entity.Enum.HouseType.Apartment, out var totalOwnedApartments))
-        //    ace_HouseManager_TotalOwnedApartments.Set(totalOwnedApartments);
-        //else
-        //    ace_HouseManager_TotalOwnedApartments.Set(0);
-        //if (HouseManager.TotalOwnedHousingByType.TryGetValue(ACE.Entity.Enum.HouseType.Cottage, out var totalOwnedCottages))
-        //    ace_HouseManager_TotalOwnedCottages.Set(totalOwnedCottages);
-        //else
-        //    ace_HouseManager_TotalOwnedCottages.Set(0);
-        //if (HouseManager.TotalOwnedHousingByType.TryGetValue(ACE.Entity.Enum.HouseType.Villa, out var totalOwnedVillas))
-        //    ace_HouseManager_TotalOwnedVillas.Set(totalOwnedVillas);
-        //else
-        //    ace_HouseManager_TotalOwnedVillas.Set(0);
-        //if (HouseManager.TotalOwnedHousingByType.TryGetValue(ACE.Entity.Enum.HouseType.Mansion, out var totalOwnedMansions))
-        //    ace_HouseManager_TotalOwnedMansions.Set(totalOwnedMansions);
-        //else
-        //    ace_HouseManager_TotalOwnedMansions.Set(0);
+        ace_HouseManager_TotalOwnedHousing.Set(HouseManager.TotalOwnedHousing);
+        if (HouseManager.TotalOwnedHousingByType.TryGetValue(HouseType.Apartment, out var totalOwnedApartments))
+            ace_HouseManager_TotalOwnedApartments.Set(totalOwnedApartments);
+        else
+            ace_HouseManager_TotalOwnedApartments.Set(0);
+        if (HouseManager.TotalOwnedHousingByType.TryGetValue(HouseType.Cottage, out var totalOwnedCottages))
+            ace_HouseManager_TotalOwnedCottages.Set(totalOwnedCottages);
+        else
+            ace_HouseManager_TotalOwnedCottages.Set(0);
+        if (HouseManager.TotalOwnedHousingByType.TryGetValue(HouseType.Villa, out var totalOwnedVillas))
+            ace_HouseManager_TotalOwnedVillas.Set(totalOwnedVillas);
+        else
+            ace_HouseManager_TotalOwnedVillas.Set(0);
+        if (HouseManager.TotalOwnedHousingByType.TryGetValue(HouseType.Mansion, out var totalOwnedMansions))
+            ace_HouseManager_TotalOwnedMansions.Set(totalOwnedMansions);
+        else
+            ace_HouseManager_TotalOwnedMansions.Set(0);
     }
 }
