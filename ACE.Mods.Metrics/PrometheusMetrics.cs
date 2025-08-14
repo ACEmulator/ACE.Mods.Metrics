@@ -141,8 +141,7 @@ public static class PrometheusMetrics
 
     public static void ShutdownMetrics()
     {
-        // todo this throws exception
-        //dotNetMetricsCollector.Dispose();
+        dotNetMetricsCollector.Dispose();
 
         metricServer?.Stop();
     }
