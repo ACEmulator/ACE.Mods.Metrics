@@ -3,8 +3,8 @@ pull_requests:
   do_not_increment_build_number: true
 skip_tags: true
 branches:
-  except:
-    - /dependabot/
+  only:
+    - main
 image: Visual Studio 2022
 configuration: Release
 dotnet_csproj:
