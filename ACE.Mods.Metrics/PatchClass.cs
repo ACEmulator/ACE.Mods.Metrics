@@ -33,13 +33,13 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
     //    return Task.CompletedTask;
     //}
 
-    protected override void SettingsChanged(object sender, EventArgs e)
-    {
-        StopServices();
-        base.SettingsChanged(sender, e);
-        Settings = SettingsContainer?.Settings ?? new();
-        StartServices();
-    }
+    //protected override void SettingsChanged(object sender, EventArgs e)
+    //{
+    //    StopServices();
+    //    base.SettingsChanged(sender, e);
+    //    Settings = SettingsContainer?.Settings ?? new();
+    //    StartServices();
+    //}
 
     public override void Stop()
     {
@@ -53,7 +53,7 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
         {
             PrometheusMetrics.InitMetrics();
 
-            Mod.Log($"Metrics Exporter Online and listening to requests at http{(Settings.UseHTTPs ? "s" : "")}://{Settings.Host}:{Settings.Port}" + "/" + $"{Settings.Url}");
+            Mod.Log($"Metrics Exporter Online and listening to requests at:\n http{(Settings.UseHTTPs ? "s" : "")}://{Settings.Host}:{Settings.Port}" + "/" + $"{Settings.Url}");
         }
         catch (Exception ex)
         {
