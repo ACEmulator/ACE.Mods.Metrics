@@ -83,7 +83,8 @@ try {
 
     $utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $false
     $jsonContent = $jsonData | ConvertTo-Json | Format-Json
-    [System.IO.File]::WriteAllText($jsonFilePath, $jsonContent, $utf8NoBomEncoding)
+    $jsonFilePath2 = [System.Environment]::GetEnvironmentVariable('APPVEYOR_BUILD_FOLDER') + "\" + [System.Environment]::GetEnvironmentVariable('APPVEYOR_PROJECT_NAME') + "\Meta.json"
+    [System.IO.File]::WriteAllText($jsonFilePath2, $jsonContent, $utf8NoBomEncoding)
 
     Write-Host "OK" -ForegroundColor Green
 
