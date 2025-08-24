@@ -79,7 +79,7 @@ try {
     $jsonData = Get-Content $jsonFilePath -Raw | ConvertFrom-Json
     $jsonData.Version = "$Env:APPVEYOR_BUILD_VERSION"
 
-    $jsonData | ConvertTo-Json | Format-Json | Out-File $jsonFilePath -Encoding utf8NoBOM
+    $jsonData | ConvertTo-Json | Format-Json | Out-File $jsonFilePath -Encoding UTF8
 
     Write-Host "OK" -ForegroundColor Green
 
