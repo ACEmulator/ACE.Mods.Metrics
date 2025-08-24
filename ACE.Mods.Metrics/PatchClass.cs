@@ -53,7 +53,7 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
         {
             PrometheusMetrics.InitMetrics();
 
-            Mod.Log($"Metrics Exporter Online and listening to requests at http{(Settings.UseHTTPs ? "s" : "")}://{Settings.Host}:{Settings.Port}" + "/" + $"{Settings.Url}");
+            Mod.Log($"Metrics Exporter Online and listening to requests at:\n http{(Settings.UseHTTPs ? "s" : "")}://{Settings.Host}:{Settings.Port}" + "/" + $"{Settings.Url}");
         }
         catch (Exception ex)
         {
