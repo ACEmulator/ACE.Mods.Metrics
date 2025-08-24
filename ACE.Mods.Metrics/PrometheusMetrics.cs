@@ -141,9 +141,15 @@ public static class PrometheusMetrics
 
     public static void ShutdownMetrics()
     {
-        dotNetMetricsCollector.Dispose();
+        dotNetMetricsCollector?.Dispose();
+
+        dotNetMetricsCollector = null;
 
         metricServer?.Stop();
+
+        metricServer?.Dispose();
+
+        metricServer = null;
     }
 
     static void MetricsAddBeforeCollectCallback()
