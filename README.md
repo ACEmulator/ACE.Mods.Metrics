@@ -38,7 +38,7 @@ Additionally, this repo has a docker compose stack found at `docker-compose.yml`
 To use the demo:
 1. Clone this repo to easily download all needed files.
 2. Initialize the docker stack with the following command: `docker compose run --rm ace-init`
-   - This will download Dats and Moda for the server to use and place them in the correct locations
+   - This will download Dats and Mods for the server to use and place them in the correct locations
    - You can choose to do this manually by
      - Placing your DAT files in a directory called `Dats`
      - Any Mods, including this one, in to the `Mods` directory using a subfolder for each mod, seperately.
