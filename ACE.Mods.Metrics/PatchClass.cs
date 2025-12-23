@@ -25,13 +25,12 @@ public class PatchClass(BasicMod mod, string settingsName = "Settings.json") : B
         return Task.CompletedTask;
     }
 
-    //public override Task OnWorldOpen()
-    //{
-    //    Settings = SettingsContainer?.Settings ?? new();
-    //    StartServices();
+    public override Task OnWorldOpen()
+    {
+        PrometheusMetrics.UpdateDatabaseVersion();
 
-    //    return Task.CompletedTask;
-    //}
+        return Task.CompletedTask;
+    }
 
     //protected override void SettingsChanged(object sender, EventArgs e)
     //{

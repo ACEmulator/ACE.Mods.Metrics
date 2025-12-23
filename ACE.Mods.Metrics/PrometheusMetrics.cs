@@ -158,9 +158,16 @@ public static class PrometheusMetrics
 
         if (database_Base_Version is null && DatabaseManager.World is not null)
         {
-            var dbVersion = DatabaseManager.World.GetVersion();
-            database_Base_Version = dbVersion.BaseVersion;
-            database_Patch_Version = dbVersion.PatchVersion;
+            try
+            {
+                var dbVersion = DatabaseManager.World.GetVersion();
+                database_Base_Version = dbVersion.BaseVersion;
+                database_Patch_Version = dbVersion.PatchVersion;
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         ace_Info.WithLabels(ServerBuildInfo.FullVersion, database_Base_Version ?? "", database_Patch_Version ?? "").Set(1);
@@ -331,5 +338,17 @@ public static class PrometheusMetrics
             ace_HouseManager_TotalOwnedMansions.Set(totalOwnedMansions);
         else
             ace_HouseManager_TotalOwnedMansions.Set(0);
+    }
+
+    public static void UpdateDatabaseVersion()
+    {
+        ace_Info.RemoveLabelled(ServerBuildInfo.FullVersion, database_Base_Version ?? "", database_Patch_Version ?? "");
+
+        if (DatabaseManager.World is not null)
+        {
+            var dbVersion = DatabaseManager.World.GetVersion();
+            database_Base_Version = dbVersion.BaseVersion;
+            database_Patch_Version = dbVersion.PatchVersion;
+        }
     }
 }
